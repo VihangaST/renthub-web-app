@@ -5,20 +5,20 @@ import PropertyReviewChart from '../components/Barchart';
 import OverallRatingDoughnutChart from '../components/Doughnutchart';
 import PropertyAvailabilityCalendar from '../components/Calender';
 
-const events = [
-    { 
-      title: "Booked", 
-      start: new Date(2025, 1, 5, 10, 0),  // Feb 5, 2025, 10:00 AM
-      end: new Date(2025, 1, 5, 14, 0),    // Feb 5, 2025, 2:00 PM
-      allDay: false // Not a full-day event
-    },
-    { 
-      title: "Available", 
-      start: new Date(2025, 1, 12, 9, 0),  // Feb 12, 2025, 9:00 AM
-      end: new Date(2025, 1, 12, 17, 0),   // Feb 12, 2025, 5:00 PM
-      allDay: false 
-    }
-  ];
+// const events = [
+//     { 
+//       title: "Booked", 
+//       start: new Date(2025, 1, 5, 10, 0),  // Feb 5, 2025, 10:00 AM
+//       end: new Date(2025, 1, 5, 14, 0),    // Feb 5, 2025, 2:00 PM
+//       allDay: false // Not a full-day event
+//     },
+//     { 
+//       title: "Available", 
+//       start: new Date(2025, 1, 12, 9, 0),  // Feb 12, 2025, 9:00 AM
+//       end: new Date(2025, 1, 12, 17, 0),   // Feb 12, 2025, 5:00 PM
+//       allDay: false 
+//     }
+//   ];
   
 
 function Property() {
@@ -50,31 +50,43 @@ function Property() {
     
         // Ensure the dates are valid
         if (start && end && start <= end) {
-          while (start <= end) {
-            dateList.push(new Date(start).toISOString().split('T')[0]); // Format as YYYY-MM-DD
-            start.setDate(start.getDate() + 1);
-          }
+        while (start <= end) {
+        dateList.push(new Date(start).toISOString().split('T')[0]); // Format as YYYY-MM-DD
+        start.setDate(start.getDate() + 1);
+        }
         }
     
         return dateList;
-      };
+    };
     
-      const handleSubmit = () => {
-        if (dates.fromDate && dates.endDate) {
-          const generatedDates = generateDateArray(dates.fromDate, dates.endDate);
-          setDateList(generatedDates);
-          console.log("Generated Dates:", generatedDates); 
-          getOccupancyPrediction();
+    const handleSubmit = () => {
+    if (dates.fromDate && dates.endDate) {
+        if(dates.fromDate > dates.endDate){
+            alert("End Date should be greater than Start Date");
+            return;
         }
-      };
+        if(dates.fromDate < new Date().toISOString().split('T')[0]){
+            alert("Start Date should be greater than or equal to today's date");
+            return;
+        }
+        if(dates.endDate < new Date().toISOString().split('T')[0]){
+            alert("End Date should be greater than or equal to today's date.")
+        }
+        
+        const generatedDates = generateDateArray(dates.fromDate, dates.endDate);
+        setDateList(generatedDates);
+        console.log("Generated Dates:", generatedDates); 
+        getOccupancyPrediction();
+    }
+    };
 
     const handleDateChange = (e) => {
         const { name, value } = e.target;
         setDates((prevDates) => ({
-          ...prevDates,
-          [name]: value,
-        }));
-      };
+        ...prevDates,
+        [name]: value,
+    }));
+    };
 
     const fetchProperty = async () => {     
         try {
@@ -96,6 +108,7 @@ function Property() {
         }
     };
 
+    // occupancy predictions
     async function getOccupancyPrediction() {
     try {
         const response = await fetch("http://localhost:5000/availability", {
@@ -241,9 +254,9 @@ function Property() {
         </div>
     </div>
 
-    <div className="flex flex-wrap justify-center items-stretch gap-6 p-6">
+    {/* <div className="flex flex-wrap justify-center items-stretch gap-6 p-6"> */}
         {/* Date Input Section */}
-        <div className="p-6 bg-white shadow-lg rounded-lg border border-gray-200 w-1/5 h-80 flex flex-col justify-between">
+        {/* <div className="p-6 bg-white shadow-lg rounded-lg border border-gray-200 w-1/5 h-80 flex flex-col justify-between">
             <div>
             <div className="flex items-center space-x-4 mt-4">
                 <label htmlFor="fromDate" className="text-sm font-medium text-gray-700">From Date</label>
@@ -277,10 +290,10 @@ function Property() {
             >
             Check Availability
             </button>
-        </div>
+        </div> */}
 
         {/* Occupancy Predictions Section */}
-        <div className="p-6 bg-white shadow-lg rounded-lg border border-gray-200 w-3/5- h-80 overflow-y-auto">
+        {/* <div className="p-6 bg-white shadow-lg rounded-lg border border-gray-200 w-3/5- h-80 overflow-y-auto">
             <div className="space-y-4">
             {occupancyPredictions.map((prediction, index) => (
                 <StatusCard
@@ -291,92 +304,65 @@ function Property() {
                 />
             ))}
             </div>
+        </div> */}
+
+{/* </div> */}
+
+    <div className="p-6 bg-gray-50 shadow-md rounded-lg border border-gray-300 space-y-6 w-full">
+      {/* First Row: Date Inputs & Button */}
+    <div className="flex items-center justify-between space-x-4">
+    <div className="flex items-center space-x-4">
+        <label htmlFor="fromDate" className="text-sm font-medium text-gray-700">From Date</label>
+        <input
+        type="date"
+        id="fromDate"
+        name="fromDate"
+        value={dates.fromDate}
+        onChange={handleDateChange}
+        className="w-full px-3 py-2 border border-gray-300 shadow-sm rounded-md"
+        />
         </div>
 
-</div>
+    <div className="flex items-center space-x-4">
+        <label htmlFor="endDate" className="text-sm font-medium text-gray-700">End Date</label>
+        <input
+        type="date"
+        id="endDate"
+        name="endDate"
+        value={dates.endDate}
+        onChange={handleDateChange}
+        className="w-full px-3 py-2 border border-gray-300 shadow-sm rounded-md"
+        />
+    </div>
 
+    <button
+        type="submit"
+        className=" h-10 px-4 py-2 text-sm text-white font-semibold rounded-md bg-primary hover:bg-primary-dark focus:ring focus:ring-primary-dark"
+        onClick={handleSubmit}
+    >
+        Check Availability
+    </button>
+    </div>
 
-
-        {/* right column */}
-        {/* <div className=' mx-auto my-6 p-4 bg-white shadow-lg rounded-lg border border-gray-200'>
-            <div className="flex items-center space-x-4 mt-4">
-            <label htmlFor="fromDate" className="text-sm font-medium text-gray-700">From Date</label>
-            <input
-                type="date"
-                id="fromDate"
-                name="fromDate"
-                value={dates.fromDate}
-                onChange={handleDateChange}
-                className="w-3/4 px-3 py-2 border border-gray-300 shadow-sm rounded-md"
-            />
-            </div>
-
-            <div className="flex items-center space-x-4 mt-4">
-            <label htmlFor="endDate" className="text-sm font-medium text-gray-700">End Date</label>
-            <input
-                type="date"
-                id="endDate"
-                name="endDate"
-                value={dates.endDate}
-                onChange={handleDateChange}
-                className="w-3/4 px-3 py-2 border border-gray-300 shadow-sm rounded-md"
-            />
-            </div>
-
-            <button
-            type="submit"
-            className="h-8 mt-4 w-full flex items-center justify-center px-4 py-2 text-sm text-white font-semibold rounded-md bg-primary hover:bg-primary-dark focus:ring focus:ring-primary-dark"
-            onClick={handleSubmit}
-            >
-            Check Availability
-            </button>
-        </div> */}
-        {/* Occupancy Prediction Cards */}
-        {/* <div className=' mx-auto my-6 p-4 bg-white shadow-lg rounded-lg border border-gray-200'>
-            <div className="flex items-center space-x-4 mt-4">
-            <label htmlFor="fromDate" className="text-sm font-medium text-gray-700">From Date</label>
-            <input
-                type="date"
-                id="fromDate"
-                name="fromDate"
-                value={dates.fromDate}
-                onChange={handleDateChange}
-                className="w-3/4 px-3 py-2 border border-gray-300 shadow-sm rounded-md"
-            />
-            </div>
-
-            <div className="flex items-center space-x-4 mt-4">
-            <label htmlFor="endDate" className="text-sm font-medium text-gray-700">End Date</label>
-            <input
-                type="date"
-                id="endDate"
-                name="endDate"
-                value={dates.endDate}
-                onChange={handleDateChange}
-                className="w-3/4 px-3 py-2 border border-gray-300 shadow-sm rounded-md"
-            />
-            </div>
-
-            <button
-            type="submit"
-            className="h-8 mt-4 w-full flex items-center justify-center px-4 py-2 text-sm text-white font-semibold rounded-md bg-primary hover:bg-primary-dark focus:ring focus:ring-primary-dark"
-            onClick={handleSubmit}
-            >
-            Check Availability
-            </button>
-        </div> */}
-        {/* <div className="space-y-4 mt-6 mx-auto my-6 p-4 bg-white shadow-lg rounded-lg border border-gray-200 w-full max-w-full max-h-[400px] overflow-y-auto">
-        {occupancyPredictions.map((prediction, index) => (
+      {/* Second Row: Occupancy Predictions */}
+    <div className="p-4 bg-white shadow-lg rounded-lg border border-gray-200 h-80 overflow-y-auto">
+    <div className="space-y-4">
+        {occupancyPredictions.length > 0 ? (
+        occupancyPredictions.map((prediction, index) => (
             <StatusCard
             key={index}
             date={new Date(prediction.ds).toDateString()}
             percentage={(prediction.availability_chance * 100).toFixed(2)}
             text={prediction.availability_status}
             />
-        ))}
-        </div>
-        */}
-        {/* </div>  */}
+        ))
+        ) : (
+        <p className="text-center text-gray-500">No occupancy predictions available.</p>
+        )}
+    </div>
+    </div>
+</div>
+
 </main>
 </div>
     </div>
