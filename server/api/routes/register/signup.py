@@ -35,12 +35,18 @@ signup_bp = Blueprint('signup', __name__)
 @signup_bp.route('/signup', methods=['POST'])
 def signup():
     try:
+        print('signup called')
         data = request.json
         username = data.get('username')
         password = data.get('password')
         confirmPassword = data.get('confirmPassword')
         roleID = data.get('userRole')
         roleName = 'Administrator' if roleID == '1' else 'User'
+        phoneNo = data.get('phoneNumber')
+        email = data.get('email')
+        hometown = data.get('homeTown')
+
+        print('data',data)
 
         # Check if user already exists
         existing_user = Users.query.filter_by(LoginName=username).first()
@@ -48,7 +54,7 @@ def signup():
             return jsonify({"error": "User already exists"}), 400
 
         # Create new user
-        new_user = Users(LoginName=username, Password=password,ConfirmPassword=password,RoleID=roleID,UserRole=roleName)
+        new_user = Users(LoginName=username, Password=password,ConfirmPassword=password,RoleID=roleID,UserRole=roleName,PhoneNo=phoneNo,Email=email,HomeTown=hometown)
         db.session.add(new_user)
         db.session.commit()
 

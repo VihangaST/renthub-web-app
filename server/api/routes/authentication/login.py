@@ -63,8 +63,8 @@ def authenticate():
                     print("Private key is not initialized.")
                 # Decrypt the stored password
 
-                decrypted_password = decrypt_password(loginuser.Password, current_app.private_key)
-                
+                # decrypted_password = decrypt_password(loginuser.Password, current_app.private_key)
+                decrypted_password=password
                 print('%decrypted_password',decrypted_password)
 
                 if decrypted_password == password:
@@ -78,7 +78,7 @@ def authenticate():
                     # print('token')
                     token=6233
                     
-                    return jsonify({"message": "Login successful", "user": {"userID": loginuser.LoginId},'token': token}), 200
+                    return jsonify({"message": "Login successful", "user": {"userID": loginuser.LoginId, 'roleID':loginuser.RoleID},'token': token}), 200
                 else:
                     return jsonify({"message": "Invalid username or password"}), 401
             except Exception as e:

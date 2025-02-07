@@ -54,6 +54,7 @@ import Navbar from './components/Navbar';
 import UserProfile from './pages/UserProfile';
 import RentPlaceList from './pages/RentPlacesList';
 import Property from './pages/Property';
+import OwnerProfile from './pages/ownerProfile';
 
 function App() {
   return (
@@ -77,6 +78,7 @@ function AppContent() {
         <Route path="/userprofile" element={<UserProfile/>} />
         <Route path="/rentplacelist" element={<RentPlaceList/>} />
         <Route path="/property/:propertyId" element={<Property/>}/>
+        <Route path="/propertyownerprofile" element={<OwnerProfile/>} /> 
       </Routes>
     </>
   );
