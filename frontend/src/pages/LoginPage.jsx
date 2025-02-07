@@ -41,10 +41,11 @@ e.preventDefault();
         if (response.ok) {
             const data = await response.json();
             alert(`Response: ${JSON.stringify(data)}`);
-            // console.log("Server Response:", data.user.userID)
+            console.log("userID:", data.user.userID)
             localStorage.setItem('userID', data.user.userID);
             // alert(Response: ${JSON.stringify(data)});
             localStorage.setItem('token', data.token);
+            localStorage.setItem('roleID', data.user.roleID);
             // alert(token:${JSON.stringify(data.token)});
             console.log("Server Response:", data);
             localStorage.setItem('username', username); // Store username in localStorage

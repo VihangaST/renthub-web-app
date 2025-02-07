@@ -331,12 +331,16 @@ export default function LoginPage() {
     const [password, setPassword] = useState('');
     const [confirmPassword,setConfirmPassword]=useState('')
     const [userRole, setUserRole] = useState('');
+    const [phoneNo, setPhoneNo] = useState('0716299291');
+    const [email, setEmail] = useState('abc@gmail.com');
+    const [homeTown, setHomeTown] = useState('Wattala');
+
 
     const [validationMessage, setValidationMessage] = useState({ username: '', password: '' });
     const navigate = useNavigate();
     // const {login}  = useContext(AuthContext);
 
-const handleSubmit = async (e) => {
+const handleSignup = async (e) => {
 e.preventDefault();
     
     // Perform front-end validation
@@ -360,7 +364,7 @@ e.preventDefault();
             'Content-Type': 'application/json',
             'Accept': 'application/json'
         },
-        body: JSON.stringify({ username, password ,confirmPassword,userRole}),
+        body: JSON.stringify({ username, password ,confirmPassword,userRole,phoneNo,email,homeTown}),
         });
 
         if (response.ok) {
@@ -371,7 +375,7 @@ e.preventDefault();
             // alert(token:${JSON.stringify(data.token)});
             console.log("Server Response:", data);
             // login(data);
-            // navigate("/Dashboard/Charts")
+            navigate("/login")
         } else {
             // alert(Login failed: ${response.statusText});
             setValidationMessage({...validationMessage, password: 'Invalid Credentials' });
@@ -519,7 +523,7 @@ return (
     <button
         type="submit"
         className="h-8 w-full flex items-center justify-center px-4 py-2 text-sm custom-button"
-        onClick={handleSubmit}
+        onClick={handleSignup}
         // onClick={() => navigate("/Dashboard")}
     >
         Sign up
