@@ -24,8 +24,8 @@ import PropertyAvailabilityCalendar from '../components/Calender';
 function Property() {
     const { propertyId } = useParams();
     const [reviews, setReviews] = useState([]);
-    const [calenderDates, setCalenderDates] = useState([]);
-
+    const [calenderDates, setCalenderDates] = useState([]); //for calender displays
+    const [bookedDates,setBookedDates]=useState([]); //store booked dates for occupancy prediction
     const [property, setProperty] = useState({
         list_ID:'',
         list_name:'',
@@ -167,19 +167,28 @@ function Property() {
             }
             
             const data = await response.json();
+            console.log('calender dates',data);
             if (data.calender_dates) {
                 // Convert the response data into the required event format
                 const events = data.calender_dates.map((entry) => {
                     return {
                         title: "Booked",
-                        start: new Date(entry.date + "T09:00:00"),  // Start at 9:00 AM
-                        end: new Date(entry.date + "T17:00:00"),    // End at 5:00 PM
+                        start: new Date(entry.date + "T00:00:00"),  // Start at 9:00 AM
+                        end: new Date(entry.date + "T24:00:00"),    // End at 5:00 PM
                         allDay: false // Specific time slot
                     };
                 });
-    
                 console.log('Formatted events:', events);
                 setCalenderDates(events);  // Assuming setCalenderDates is your state setter
+
+                console.log('calender dates',data.calender_dates);
+                setBookedDates(data.calender_dates);//for occupancy predictions table
+
+                
+
+
+
+    
             } else {
                 setCalenderDates([]); // Set an empty array if no data is found
             }
@@ -357,6 +366,7 @@ function Property() {
             propertyID={propertyId}
             fetchCalenderDates={fetchCalenderDates}
             calenderDates={calenderDates}
+            bookedDates={bookedDates}
             />
         ))
         ) : (

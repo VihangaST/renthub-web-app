@@ -244,3 +244,44 @@ def book_property():
         return jsonify({"message": "An error occurred while booking property"}), 500
 
 
+@property_bp.route('/removeBooking', methods=['DELETE'])
+def remove_booking():
+    try:
+       
+        data = request.get_json()
+        # Extract data
+        date = data.get('date')
+        user_id = data.get('userID')
+        property_id = data.get('propertyID')
+        print('removeBooking',date,user_id,property_id)
+        if not date or not user_id or not property_id:
+            return jsonify({'message': 'Missing required fields'}), 400
+
+        # Convert the date to 'YYYY-MM-DD' format
+        try:
+            date_obj = datetime.strptime(date, "%a %b %d %Y")  # Parse the input date string
+            formatted_date = date_obj.strftime("%Y-%m-%d")  # Format it as 'YYYY-MM-DD'
+        except ValueError:
+            return jsonify({'message': 'Invalid date format'}), 400
+
+       # Find the booking record
+        booking = CalenderDates.query.filter_by(property_ID=property_id, date=date_obj, tenant_ID=user_id, availability=1).first()
+
+        if not booking:
+            return jsonify({'message': 'No booking found to remove'}), 404
+        
+        # Delete the booking record
+        db.session.delete(booking)
+        db.session.commit()  # Commit changes to the database
+
+        return jsonify({'message': 'Booking removed successfully'}), 200
+
+    except Exception as e:
+        # If an error occurs during deletion
+        db.session.rollback()
+        return jsonify({'message': 'Error removing booking', 'error': str(e)}), 500
+
+
+
+
+
