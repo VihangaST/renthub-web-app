@@ -357,11 +357,13 @@ import { useNavigate } from "react-router-dom";
 
 export default function Navbar() {
   const navigate = useNavigate();
+  const roleID = localStorage.getItem("roleID");
 
   const handleLogout = () => {
     // Clear user authentication data (e.g., token)
     localStorage.removeItem("token");
     localStorage.removeItem("username");
+    localStorage.removeItem("userID");
     // Navigate to the login page
     navigate("/login");
   };
@@ -373,26 +375,40 @@ export default function Navbar() {
         <h1 className="text-xl font-bold">Renthub</h1>
 
         {/* Center: Navigation Links */}
+
+        {roleID==='1' ? (
         <div className="space-x-24">
           <a
-            href="/userprofile"
+            href="/propertyownerprofile"
             className="text-gray-400 hover:text-gray-100 transition duration-200"
           >
-            User Profile
+            Property Owner Profile
           </a>
           <a
-            href="/rentplacelist"
+            href="/bookings"
             className="text-gray-400 hover:text-gray-100 transition duration-200"
           >
-            Rent places
+            Bookings
           </a>
-          {/* <a
-            href="/services"
-            className="hover:text-gray-400 transition duration-200"
-          >
-            Services
-          </a> */}
+      </div>
+
+        ):(
+          <div className="space-x-24">
+            <a
+              href="/userprofile"
+              className="text-gray-400 hover:text-gray-100 transition duration-200"
+            >
+              User Profile
+            </a>
+            <a
+              href="/rentplacelist"
+              className="text-gray-400 hover:text-gray-100 transition duration-200"
+            >
+              Rent places
+            </a>
         </div>
+        )}
+       
 
         {/* Right: Logout Button */}
         <button
