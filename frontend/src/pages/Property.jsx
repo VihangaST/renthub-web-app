@@ -40,7 +40,7 @@ function Property() {
     });
     const [dates, setDates] = useState({ fromDate: "", endDate: "" });
     const [dateList, setDateList] = useState([]);
-
+    
     const [occupancyPredictions, setOccupancyPredictions] = useState([]);
 
     const generateDateArray = (startDate, endDate) => {
@@ -354,6 +354,9 @@ function Property() {
             date={new Date(prediction.ds).toDateString()}
             percentage={(prediction.availability_chance * 100).toFixed(2)}
             text={prediction.availability_status}
+            propertyID={propertyId}
+            fetchCalenderDates={fetchCalenderDates}
+            calenderDates={calenderDates}
             />
         ))
         ) : (

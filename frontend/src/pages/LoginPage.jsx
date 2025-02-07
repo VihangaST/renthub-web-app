@@ -41,6 +41,8 @@ e.preventDefault();
         if (response.ok) {
             const data = await response.json();
             alert(`Response: ${JSON.stringify(data)}`);
+            // console.log("Server Response:", data.user.userID)
+            localStorage.setItem('userID', data.user.userID);
             // alert(Response: ${JSON.stringify(data)});
             localStorage.setItem('token', data.token);
             // alert(token:${JSON.stringify(data.token)});

@@ -2,9 +2,11 @@ from flask import Blueprint, jsonify, request, current_app
 from classModels.listings import Listing
 from classModels.reviewRates import ReviewRate
 from classModels.calenderdates import CalenderDates
+from datetime import datetime
 import joblib
 import pandas as pd
 import numpy as np
+from extensions import db
 
 property_bp = Blueprint('property', __name__)
 @property_bp.route('/propertytest')
@@ -199,7 +201,8 @@ def get_calenderDates(property_id):
                 {
                     "property_id": date_record.property_ID,
                     "date": date_record.date.strftime('%Y-%m-%d'),  # Format the date to string (optional)
-                    "availability": date_record.availability
+                    "availability": date_record.availability,
+                    "tenant_id":date_record.tenant_ID
                 }
                 for date_record in calender_dates
             ]
@@ -210,3 +213,34 @@ def get_calenderDates(property_id):
         # Log or print the error for debugging
         print(f"Error fetching property calendar data: {e}")
         return jsonify({"message": "An error occurred while fetching property calendar data"}), 500
+
+
+@property_bp.route('/book', methods=['POST'])
+def book_property():
+    try:
+        data = request.get_json()
+        propertyID = data.get('propertyID')
+        date_str = data.get('date')
+        tenantID = data.get('userID')
+        print('propertyID',propertyID,'date',date_str,'tenantID',tenantID)
+        # Convert the date string to 'YYYY-MM-DD' format
+        date_obj = datetime.strptime(date_str, '%a %b %d %Y').date()  # e.g., '2025-02-21'
+
+        calendar_entry = CalenderDates(
+                property_ID=propertyID,
+                date=date_obj,
+                availability=1,  # Mark as booked
+                tenant_ID=tenantID
+            )
+        db.session.add(calendar_entry)
+
+        db.session.commit()
+
+        return jsonify({"message": "Property booked successfully"}), 200
+
+
+    except Exception as e:
+        print(f"Error booking property: {e}")
+        return jsonify({"message": "An error occurred while booking property"}), 500
+
+

@@ -8,4 +8,5 @@ class CalenderDates(db.Model):
     property_ID = db.Column(db.Integer, nullable=False)  # Use db.String(45) for varchar(45)
     date = db.Column(db.Date, nullable=False)  # Use db.Date for date column
     availability = db.Column(db.Integer, nullable=False)  # Use db.Integer for tinyint(1)
+    tenant_ID = db.Column(db.Integer, nullable=False)  # Use db.String(45) for varchar(45)
 
