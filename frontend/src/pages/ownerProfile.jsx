@@ -3,21 +3,16 @@ import { useEffect, useState } from "react";
 import { BASE_URL } from "../constants/config";
 
 export default function OwnerProfile() {
-    const BASE_URL = "http://localhost:5000"; // Replace with your backend URL
+    // const BASE_URL = "http://localhost:5000"; // Replace with your backend URL
     const username = localStorage.getItem("username"); // Retrieve username from localStorage
     const userID = localStorage.getItem("userID"); // Retrieve userID from localStorage
     const [userDetails, setUserDetails] = useState(null);
-
-
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
-    const [selectedProperty, setSelectedProperty] = useState(null);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [formData, setFormData] = useState();
 
     //for properties of user
     const [userProperties, setUserProperties] = useState([]);
-    const [updateUserProperties, setUpdateUserProperties] = useState({});
+    // const [updateUserProperties, setUpdateUserProperties] = useState({});
 
     const [isEditable, setIsEditable] = useState(false); // State to toggle editability
     const [updatedDetails, setUpdatedDetails] = useState({}); // State for edited details
@@ -109,15 +104,15 @@ export default function OwnerProfile() {
     };
 
     const handleDoubleClick = (property) => {
-        setSelectedProperty(property);
+        // setSelectedProperty(property);
         setFormData(property);
         setIsModalOpen(true);
-      };
+    };
 
     const handlePropertyInputChange = (e) => {
         const { name, value } = e.target;
         setFormData({ ...formData, [name]: value });
-      };
+    };
 
     const handleUpdatePropertyDetails = async () => {
         try {
@@ -255,7 +250,7 @@ export default function OwnerProfile() {
                 <p className="text-sm text-gray-500 mt-4">Loading user details...</p>
             )}
             </div>
-           
+
 
             <div className="p-4">
             <h2 className="text-2xl font-bold mb-4">Owner Properties</h2>
@@ -279,7 +274,7 @@ export default function OwnerProfile() {
             </div>
 
             {isModalOpen && (
-                <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+            <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
                 <div className="bg-white p-6 rounded-lg shadow-lg w-96">
                 <h3 className="text-xl text-black font-bold mb-4">Edit Property</h3>
 
@@ -293,7 +288,6 @@ export default function OwnerProfile() {
                         className="w-full border rounded p-2"
                     />
                     </div>
-                   
 
                     <div className="grid grid-cols-2 gap-4">
                     <label className="flex items-center text-black">

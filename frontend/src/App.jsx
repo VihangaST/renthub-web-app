@@ -55,6 +55,7 @@ import UserProfile from './pages/UserProfile';
 import RentPlaceList from './pages/RentPlacesList';
 import Property from './pages/Property';
 import OwnerProfile from './pages/ownerProfile';
+import OwnerBookingsPage from './pages/OwnerBookingsPage';
 
 function App() {
   return (
@@ -79,6 +80,7 @@ function AppContent() {
         <Route path="/rentplacelist" element={<RentPlaceList/>} />
         <Route path="/property/:propertyId" element={<Property/>}/>
         <Route path="/propertyownerprofile" element={<OwnerProfile/>} /> 
+        <Route path='/bookings' element={<OwnerBookingsPage/>} />
       </Routes>
     </>
   );
