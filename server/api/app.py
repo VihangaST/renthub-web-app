@@ -12,6 +12,7 @@ from routes.rentplaces.rentplaceslist import rentplaceslist_bp
 from routes.userprofile.userProfile import userProfile_bp
 from routes.ownerprofile.ownerProfile import ownerProfile_bp
 from routes.ownerBookings.ownerBookings import ownerBookings_bp
+from routes.ownerPricePredictions.ownerPricePredictions import ownerPricePredictions_bp
 
 
 def create_app():
@@ -41,6 +42,7 @@ def create_app():
     app.register_blueprint(userProfile_bp)
     app.register_blueprint(ownerProfile_bp)
     app.register_blueprint(ownerBookings_bp)
+    app.register_blueprint(ownerPricePredictions_bp)
     
     return app
 

@@ -9,5 +9,5 @@ class Calender(db.Model):
     Adjusted_price = db.Column(db.Float, nullable=False)
     Minimum_nights = db.Column(db.Integer, nullable=False)
     Maximum_nights = db.Column(db.Integer, nullable=False)
-    Listing_ID = db.Column(db.String(45), nullable=False)
+    Listing_ID = db.Column(db.Integer, nullable=False)
 

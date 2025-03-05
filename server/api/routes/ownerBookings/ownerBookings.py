@@ -13,32 +13,7 @@ ownerBookings_bp = Blueprint('ownerBookings_bp', __name__)
 
 @ownerBookings_bp.route('/bookings/<int:user_id>', methods=['GET'])
 def get_calenderDates(user_id):
-    # try:
-    #     print("user_id in calender dates", user_id)
-
-    #     calender_dates = CalenderDates.query.filter_by(property_ID=2352).all()
-    #     print('calender dates', calender_dates)
-        
-    #     if calender_dates:
-    #         # Convert the SQLAlchemy objects to a list of dictionaries
-    #         calender_dates_list = [
-    #             {
-    #                 "property_id": date_record.property_ID,
-    #                 "date": date_record.date.strftime('%Y-%m-%d'),  # Format the date to string (optional)
-    #                 "availability": date_record.availability,
-    #                 "tenant_id":date_record.tenant_ID
-    #             }
-    #             for date_record in calender_dates
-    #         ]
-    #         print('calender dates list', calender_dates_list)
-    #         return jsonify({"message": "Property calendar data fetched successfully", "calender_dates":calender_dates_list }), 200
-    #     else:
-    #         return jsonify({"message": "No property calendar data found"}), 404
-    # except Exception as e:
-    #     # Log or print the error for debugging
-    #     print(f"Error fetching property calendar data: {e}")
-    #     return jsonify({"message": "An error occurred while fetching property calendar data"}), 500
-
+    
     try:
         print("user_id in calendar dates:", user_id)
 
@@ -53,9 +28,6 @@ def get_calenderDates(user_id):
         # Fetch calendar dates for the fetched property IDs
         calender_dates = CalenderDates.query.filter(CalenderDates.property_ID.in_(property_ids)).all()
 
-        # Organize calendar dates by property_id
-        # calender_dates_dict = {}
-        # Organize calendar dates by property_id, ensuring all properties are included
         calender_dates_dict = {prop_id: [] for prop_id in property_ids}  # Initialize all properties with empty lists
 
         for date_record in calender_dates:
