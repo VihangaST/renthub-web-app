@@ -390,6 +390,12 @@ export default function Navbar() {
           >
             Bookings
           </a>
+          <a
+            href="/price"
+            className="text-gray-400 hover:text-gray-100 transition duration-200"
+          >
+            Prices
+          </a>
       </div>
 
         ):(
