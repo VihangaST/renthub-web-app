@@ -421,6 +421,8 @@ import OwnerPageReviewCharts from "../components/OwnerPageReviewCharts";
 function OwnerFeatureAnalysis() {
     const userID = localStorage.getItem("userID");
     const [reviewData, setReviewData] = useState([]);
+    const [originalReviewData, setOriginalReviewData] = useState([]); // Stores unmodified values
+
 
     const fetchReviews = async () => {
         try {
@@ -459,6 +461,7 @@ function OwnerFeatureAnalysis() {
             });
 
             setReviewData(formattedData); // Store all properties data
+            setOriginalReviewData(JSON.parse(JSON.stringify(formattedData))); // Deep copy to preserve original values
 
         } catch (error) {
             console.error("Error fetching property data:", error);
@@ -638,7 +641,18 @@ function OwnerFeatureAnalysis() {
                     {reviewData.length > 0 ? (
                         reviewData.map((property) => (
                             <div key={property.propertyID} className="flex gap-10 mt-4 w-full min-w-[1200px] rounded">
+                                
+                                {/* <div>
+                                <OwnerPageReviewCharts property={property.reviewScores} />
+                                </div> */}
+                                {/* Static Chart - Uses Original Values */}
                                 <div>
+                                    <OwnerPageReviewCharts property={originalReviewData.find(p => p.propertyID === property.propertyID).reviewScores} />
+                                </div>
+                                <div>
+                                    <DualGaugeChart beforeRating={property.rating} afterRating={predictedRatings[property.propertyID]} />
+                                
+                                    <div>
                                 <h2 className="text-lg font-bold text-gray-500">Property ID: {property.propertyID}</h2>
                                 <form onSubmit={(e) => handlePredictRating(e, property.propertyID)} className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
                                     {property.reviewScores.map((score, index) => (
@@ -664,17 +678,6 @@ function OwnerFeatureAnalysis() {
                                     </div>
                                 </form>
                                 </div>
-
-                                {/* <div>
-                                {predictedRatings[property.propertyID] && (
-                                    <div className="mt-4 p-4 bg-gray-500 rounded shadow">
-                                        <h3 className="text-xl">Predicted Rating: {predictedRatings[property.propertyID]}</h3>
-                                    </div>
-                                )}
-                                </div> */}
-
-                                <div>
-                                    <DualGaugeChart beforeRating={property.rating} afterRating={predictedRatings[property.propertyID]} />
                                 </div>
 
                                 <div>
