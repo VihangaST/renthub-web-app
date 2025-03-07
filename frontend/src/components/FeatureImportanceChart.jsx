@@ -94,7 +94,7 @@ const FeatureImportanceChart = ({ featureImportance }) => {
   };
 
   return (
-    <div className="w-full max-w-lg mx-auto">
+    <div className="w-full h-80 p-4 bg-white rounded-lg">
       <Bar data={data} options={options} />
     </div>
   );

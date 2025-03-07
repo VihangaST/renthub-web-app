@@ -14,8 +14,8 @@ const FeatureInsights = ({ featureImportance }) => {
     };
   
     return (
-      <div className="mt-4 p-4 bg-gray-100 rounded text-gray-500">
-        <h3 className="text-lg text-gray-400 font-semibold">Top Factor Impacting Rating: {topFeature[0]}</h3>
+      <div className="mt-4 p-4 bg-red-100 rounded text-gray-500">
+        <h3 className="text-lg text-red-500 font-semibold">Top Factor Impacting Rating: {topFeature[0]}</h3>
         <p>{suggestions[topFeature[0]] || "Focus on this aspect to improve ratings."}</p>
       </div>
     );

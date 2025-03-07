@@ -103,8 +103,47 @@ def load_model():
         return None
 
 
-@ownerFeatureAnalysis_bp.route('/analyze_review', methods=['POST'])
-def analyze_review():
+# @ownerFeatureAnalysis_bp.route('/analyze_review', methods=['POST'])
+# def analyze_review():
+#     try:
+#         model = load_model()
+#         if model is None:
+#             raise RuntimeError("Failed to load model")
+
+#         # Define features used in training
+#         feature_columns = [
+#             'review_scores_accuracy', 
+#             'review_scores_cleanliness', 
+#             'review_scores_checkin', 
+#             'review_scores_communication', 
+#             'review_scores_location', 
+#             'review_scores_value'
+#         ]
+
+#         # Compute feature importance
+#         feature_importance = model.feature_importances_
+#         importance_dict = {feature_columns[i]: feature_importance[i] for i in range(len(feature_columns))}
+
+#         data = request.json.get("features", [])
+#          # Ensure correct number of features
+#         if len(data) != len(feature_columns):
+#             return jsonify({"error": f"Expected {len(feature_columns)} features, but got {len(data)}"}), 400
+
+#         input_data = pd.DataFrame([data], columns=feature_columns)
+#         prediction = model.predict(input_data)[0]
+
+#         print("Prediction:", prediction)
+
+#         return jsonify({
+#             "predicted_rating": round(prediction, 2),
+#             "feature_importance": importance_dict  # Send feature importance
+#         })
+
+#     except Exception as e:
+#         return jsonify({"error": str(e)})
+
+@ownerFeatureAnalysis_bp.route('/get_feature_importance', methods=['GET'])
+def get_feature_importance():
     try:
         model = load_model()
         if model is None:
@@ -124,19 +163,43 @@ def analyze_review():
         feature_importance = model.feature_importances_
         importance_dict = {feature_columns[i]: feature_importance[i] for i in range(len(feature_columns))}
 
+        return jsonify({
+            "feature_importance": importance_dict
+        })
+
+    except Exception as e:
+        return jsonify({"error": str(e)})
+
+
+@ownerFeatureAnalysis_bp.route('/predict_review', methods=['POST'])
+def predict_review():
+    try:
+        model = load_model()
+        if model is None:
+            raise RuntimeError("Failed to load model")
+
+        # Define features used in training
+        feature_columns = [
+            'review_scores_accuracy', 
+            'review_scores_cleanliness', 
+            'review_scores_checkin', 
+            'review_scores_communication', 
+            'review_scores_location', 
+            'review_scores_value'
+        ]
+
+        # Extract features from the request
         data = request.json.get("features", [])
-         # Ensure correct number of features
+
+        # Ensure the correct number of features
         if len(data) != len(feature_columns):
             return jsonify({"error": f"Expected {len(feature_columns)} features, but got {len(data)}"}), 400
 
         input_data = pd.DataFrame([data], columns=feature_columns)
         prediction = model.predict(input_data)[0]
 
-        print("Prediction:", prediction)
-
         return jsonify({
-            "predicted_rating": round(prediction, 2),
-            "feature_importance": importance_dict  # Send feature importance
+            "predicted_rating": round(prediction, 2)
         })
 
     except Exception as e:
