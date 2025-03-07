@@ -191,6 +191,8 @@ function OwnerPricePredictions() {
 
     useEffect(() => {
         fetchPrices();
+        // Call the function
+        // analyzeReview(reviewScores);
     }, []);
 
     // Function to prepare chart data for price and adjusted price, filtered by selected month and year
@@ -208,6 +210,71 @@ function OwnerPricePredictions() {
 
         return { dates, prices };
     };
+    
+
+    // const analyzeReview = async (reviewData) => {
+    //     try {
+            
+    //         const response = await fetch(`http://localhost:5000/analyze_review`, {
+    //             method: 'POST',
+    //             headers: {
+    //                 "Content-Type": "application/json",
+    //                 Accept: "application/json",
+    //                 },
+    //             body: JSON.stringify(reviewData)
+    //         });
+
+            
+    
+    //         const data = await response.json();
+    //         console.log("Analysis Result:", data);
+    
+    //         alert(`Current Review Score: ${data.current_review_score}
+    //         Focus on improving: ${data.suggested_improvements.join(", ")}`);
+    
+    //     } catch (error) {
+    //         console.error("Error analyzing review:", error);
+    //     }
+    // };
+    // const analyzeReview = async (reviewData) => {
+    //     try {
+    //         const response = await fetch(`http://localhost:5000/analyze_review`, {
+    //             method: "POST",
+    //             headers: {
+    //                 "Content-Type": "application/json",
+    //                 "Accept": "application/json",
+    //             },
+    //             body: JSON.stringify(reviewData),
+    //         });
+    //         alert("Analyzing review...");
+    
+    //         // Check if response is OK
+    //         if (!response.ok) {
+    //             const errorText = await response.text();
+    //             throw new Error(`HTTP error! Status: ${response.status} - ${errorText}`);
+    //         }
+    
+    //         const data = await response.json();
+    //         console.log("Analysis Result:", data);
+    
+    //         alert(`Current Review Score: ${data.current_review_score}
+    //         Focus on improving: ${data.suggested_improvements.join(", ")}`);
+    
+    //     } catch (error) {
+    //         console.error("Error analyzing review:", error);
+    //         alert("An error occurred while analyzing the review. Check the console for details.");
+    //     }
+    // };
+    
+
+    // const reviewScores = {
+    //     review_scores_accuracy: 3.5,
+    //     review_scores_cleanliness: 4.1,
+    //     review_scores_checkin: 2.5,
+    //     review_scores_communication: 3.4,
+    //     review_scores_location: 2.9,
+    //     review_scores_value: 2.5
+    // };
 
     return (
         <div className="flex flex-col items-center p-6 mt-4">

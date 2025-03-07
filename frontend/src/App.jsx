@@ -57,6 +57,7 @@ import Property from './pages/Property';
 import OwnerProfile from './pages/ownerProfile';
 import OwnerBookingsPage from './pages/OwnerBookingsPage';
 import OwnerPricePredictions from './pages/OwnerPricePredictions';
+import OwnerFeatureAnalysis from './pages/OwnerFeatureAnalysis';
 
 function App() {
   return (
@@ -83,6 +84,7 @@ function AppContent() {
         <Route path="/propertyownerprofile" element={<OwnerProfile/>} /> 
         <Route path='/bookings' element={<OwnerBookingsPage/>} />
         <Route path='/price' element={<OwnerPricePredictions/>} />
+        <Route path='/reviews' element={<OwnerFeatureAnalysis/>} />
       </Routes>
     </>
   );

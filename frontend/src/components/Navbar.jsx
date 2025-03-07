@@ -396,6 +396,12 @@ export default function Navbar() {
           >
             Prices
           </a>
+          <a
+            href="/reviews"
+            className="text-gray-400 hover:text-gray-100 transition duration-200"
+          >
+            Reviews
+          </a>
       </div>
 
         ):(
