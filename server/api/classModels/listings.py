@@ -5,8 +5,8 @@ class Listing(db.Model):
 
     # Define columns
     table_ID = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    list_ID = db.Column(db.Integer, nullable=False)
-    list_name = db.Column(db.String(90), nullable=False)
+    list_ID = db.Column(db.Integer, nullable=True)
+    list_name = db.Column(db.String(90), nullable=True)
     host_ID = db.Column(db.Integer, nullable=False)
     host_name = db.Column(db.String(45), nullable=False)
     neighbourhood = db.Column(db.String(45), nullable=True)
@@ -16,7 +16,6 @@ class Listing(db.Model):
     price = db.Column(db.Float, nullable=True)
     minmum_nights = db.Column(db.Integer, nullable=True)
     number_of_reviews = db.Column(db.Integer, nullable=True)
-    calculated_host_listings_count = db.Column(db.Integer, nullable=True)
     availability_365 = db.Column(db.Integer, nullable=True)
     number_of_reviews_ltm = db.Column(db.Integer, nullable=True)
 

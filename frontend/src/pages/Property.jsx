@@ -4,22 +4,8 @@ import StatusCard from '../components/StatusCard';
 import PropertyReviewChart from '../components/Barchart';
 import OverallRatingDoughnutChart from '../components/Doughnutchart';
 import PropertyAvailabilityCalendar from '../components/Calender';
-
-// const events = [
-//     { 
-//       title: "Booked", 
-//       start: new Date(2025, 1, 5, 10, 0),  // Feb 5, 2025, 10:00 AM
-//       end: new Date(2025, 1, 5, 14, 0),    // Feb 5, 2025, 2:00 PM
-//       allDay: false // Not a full-day event
-//     },
-//     { 
-//       title: "Available", 
-//       start: new Date(2025, 1, 12, 9, 0),  // Feb 12, 2025, 9:00 AM
-//       end: new Date(2025, 1, 12, 17, 0),   // Feb 12, 2025, 5:00 PM
-//       allDay: false 
-//     }
-//   ];
-  
+import ReviewCard from '../components/ReviewCard';
+import OccupancyPredictionDisplay from '../components/OccupancyPredictionDisplay';
 
 function Property() {
     const { propertyId } = useParams();
@@ -105,6 +91,29 @@ function Property() {
             console.error("Error fetching property data:", error);
             alert("There was a problem fetching property data. Please try again later.");
             // Optional: log error to an external service or update the state to show an error message in the UI
+        }
+    };
+
+    const [reviewList, setReviewList]=useState([])
+    // Fetch Reviews from API
+    const fetchReviews = async () => {
+        try {
+            const response = await fetch(`http://localhost:5000/property_reviews/${propertyId}`);
+            if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
+
+            const data = await response.json();
+            if (!data.reviews) throw new Error('Property reviews data is missing in the response');
+
+            const formattedData = Object.keys(data.reviews).map((propertyID) => {
+                return {
+                    propertyID,
+                    reviews: data.reviews[propertyID]
+                };
+            });
+            setReviewList(formattedData);
+
+        } catch (error) {
+            console.error("Error fetching property reviews:", error);
         }
     };
 
@@ -203,14 +212,9 @@ function Property() {
         fetchProperty();
         fetchReviewRates();
         fetchCalenderDates();
+        fetchReviews();
 
-    }, []);
-
-    // useEffect(() => {
-    //     getOccupancyPrediction(2352, '2024-12-31');
-    // }
-    // , []);
-    
+    }, []);    
 
   return (
     <>
@@ -259,63 +263,9 @@ function Property() {
 
     <div className=" justify-center items-stretch gap-6 p-6">
         <div className="flex justify-center rounded-lg items-center min-h-screen bg-gray-100 p-6">
-        <PropertyAvailabilityCalendar events={calenderDates} />
+        <PropertyAvailabilityCalendar events={calenderDates} bookedDates={bookedDates} />
         </div>
     </div>
-
-    {/* <div className="flex flex-wrap justify-center items-stretch gap-6 p-6"> */}
-        {/* Date Input Section */}
-        {/* <div className="p-6 bg-white shadow-lg rounded-lg border border-gray-200 w-1/5 h-80 flex flex-col justify-between">
-            <div>
-            <div className="flex items-center space-x-4 mt-4">
-                <label htmlFor="fromDate" className="text-sm font-medium text-gray-700">From Date</label>
-                <input
-                type="date"
-                id="fromDate"
-                name="fromDate"
-                value={dates.fromDate}
-                onChange={handleDateChange}
-                className="w-3/4 px-3 py-2 border border-gray-300 shadow-sm rounded-md"
-                />
-            </div>
-
-            <div className="flex items-center space-x-4 mt-4">
-                <label htmlFor="endDate" className="text-sm font-medium text-gray-700">End Date</label>
-                <input
-                type="date"
-                id="endDate"
-                name="endDate"
-                value={dates.endDate}
-                onChange={handleDateChange}
-                className="w-3/4 px-3 py-2 border border-gray-300 shadow-sm rounded-md"
-                />
-            </div>
-            </div>
-
-            <button
-            type="submit"
-            className="h-10 mt-4 w-full flex items-center justify-center px-4 py-2 text-sm text-white font-semibold rounded-md bg-primary hover:bg-primary-dark focus:ring focus:ring-primary-dark"
-            onClick={handleSubmit}
-            >
-            Check Availability
-            </button>
-        </div> */}
-
-        {/* Occupancy Predictions Section */}
-        {/* <div className="p-6 bg-white shadow-lg rounded-lg border border-gray-200 w-3/5- h-80 overflow-y-auto">
-            <div className="space-y-4">
-            {occupancyPredictions.map((prediction, index) => (
-                <StatusCard
-                key={index}
-                date={new Date(prediction.ds).toDateString()}
-                percentage={(prediction.availability_chance * 100).toFixed(2)}
-                text={prediction.availability_status}
-                />
-            ))}
-            </div>
-        </div> */}
-
-{/* </div> */}
 
     <div className="p-6 bg-gray-50 shadow-md rounded-lg border border-gray-300 space-y-6 w-full">
       {/* First Row: Date Inputs & Button */}
@@ -356,7 +306,7 @@ function Property() {
       {/* Second Row: Occupancy Predictions */}
     <div className="p-4 bg-white shadow-lg rounded-lg border border-gray-200 h-80 overflow-y-auto">
     <div className="space-y-4">
-        {occupancyPredictions.length > 0 ? (
+        {/* {occupancyPredictions.length > 0 ? (
         occupancyPredictions.map((prediction, index) => (
             <StatusCard
             key={index}
@@ -371,10 +321,26 @@ function Property() {
         ))
         ) : (
         <p className="text-center text-gray-500">No occupancy predictions available.</p>
-        )}
+        )} */}
+        <OccupancyPredictionDisplay occupancyPredictions={occupancyPredictions} bookedDates={bookedDates} propertyID={propertyId} fetchCalenderDates={fetchCalenderDates}/>
+
     </div>
     </div>
 </div>
+<div className="p-6 bg-white mt-8 shadow-lg rounded-lg border border-gray-200 w-full h-80 overflow-y-auto">
+            <h3 className="text-xl text-black font-semibold mb-4">Reviews</h3>
+            {reviewList.length > 0 ? (
+                reviewList.map((item, index) => (
+                    <div key={index}>
+                        {item.reviews.map((review, idx) => (
+                            <ReviewCard key={idx} review={review} />
+                        ))}
+                    </div>
+                ))
+            ) : (
+                <p className="text-center text-gray-500">No reviews available.</p>
+            )}
+        </div>
 
 </main>
 </div>
@@ -385,3 +351,4 @@ function Property() {
 }
 
 export default Property
+

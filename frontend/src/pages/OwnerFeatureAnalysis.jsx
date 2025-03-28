@@ -94,31 +94,6 @@ function OwnerFeatureAnalysis() {
 
         const data = await response.json();
         console.log("Predicted Review Rates:", data); // Debugging
-            // Hardcoded API response
-            // const data = {
-            //     "PredictedReviewRates": {
-            //         "2352": {
-            //             "feature_importance": {
-            //                 "review_scores_accuracy": 4.2768,
-            //                 "review_scores_checkin": 4.3293,
-            //                 "review_scores_cleanliness": 4.3909,
-            //                 "review_scores_communication": 4.3615,
-            //                 "review_scores_location": 4.5089,
-            //                 "review_scores_value": 4.1138
-            //             }
-            //         },
-            //         "2354": {
-            //             "feature_importance": {
-            //                 "review_scores_accuracy": 4.1987,
-            //                 "review_scores_checkin": 4.3012,
-            //                 "review_scores_cleanliness": 4.3754,
-            //                 "review_scores_communication": 4.3456,
-            //                 "review_scores_location": 4.4921,
-            //                 "review_scores_value": 4.0923
-            //             }
-            //         }
-            //     }
-            // };
 
             if (data.error) {
                 setFeatureImportance({});
@@ -168,9 +143,9 @@ function OwnerFeatureAnalysis() {
                             />
                         </div>
                     </div>
-                );
-            })
-        )
+                    );
+                    })
+                     )
                     : (
                         <p>Loading review data...</p>
                     )}

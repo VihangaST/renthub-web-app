@@ -13,7 +13,8 @@ def get_test_message():
 def get_rentplaces():
     try:
         # Fetch all rows from the Listing table
-        properties = Listing.query.limit(10).all()
+        properties = Listing.query.filter_by(host_ID=2582).limit(10).all()
+
         print('rentplaceslist', properties)
 
         if properties:
