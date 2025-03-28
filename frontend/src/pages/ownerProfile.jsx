@@ -394,41 +394,6 @@ export default function OwnerProfile() {
                                 className="w-full border rounded p-2"
                             />
                         </div>
-
-                        {/* <div className="grid grid-cols-2 gap-4">
-                            <label className="flex items-center text-black">Latitude:</label>
-                            <input
-                                type="number"
-                                name="latitude"
-                                value={formData.latitude}
-                                onChange={handlePropertyInputChange}
-                                className="w-full border rounded p-2"
-                            />
-                        </div> */}
-
-                        {/* <div className="grid grid-cols-2 gap-4">
-                            <label className="flex items-center text-black">Longitude:</label>
-                            <input
-                                type="number"
-                                name="longitude"
-                                value={formData.longitude}
-                                onChange={handlePropertyInputChange}
-                                className="w-full border rounded p-2"
-                            />
-                        </div> */}
-
-                        {/* <div className="grid grid-cols-2 gap-4">
-                            <label className="flex items-center text-black">Neighbourhood:</label>
-                            <input
-                                type="text"
-                                name="neighbourhood"
-                                value={formData.neighbourhood}
-                                onChange={handlePropertyInputChange}
-                                className="w-full border rounded p-2"
-                            />
-                        </div> */}
-                       
-
                         <div className="grid grid-cols-2 gap-4">
                             <label className="flex items-center text-black">Neighbourhood:</label>
                             <select
@@ -445,8 +410,6 @@ export default function OwnerProfile() {
                                 ))}
                             </select>
                         </div>
-
-
                         <div className="grid grid-cols-2 gap-4">
                             <label className="flex items-center text-black">Property type:</label>
                             <select
@@ -465,8 +428,7 @@ export default function OwnerProfile() {
                         </div>
                         </div>
 
-                       <div>
-                       
+                    <div> 
                         <div className="grid grid-cols-2 gap-4">
                             <label className="flex items-center text-black">Room type:</label>
                             <select
@@ -494,17 +456,6 @@ export default function OwnerProfile() {
                                 className="w-full border rounded p-2"
                             />
                         </div>
-
-                        {/* <div className="grid grid-cols-2 gap-4">
-                            <label className="flex items-center text-black">Bathrooms:</label>
-                            <input
-                                type="text"
-                                name="bathrooms_text"
-                                value={formData.bathrooms_text}
-                                onChange={handlePropertyInputChange}
-                                className="w-full border rounded p-2"
-                            />
-                        </div> */}
                         <div className="grid grid-cols-2 gap-4">
                         <label className="flex items-center text-black">Bathrooms:</label>
                         <select
@@ -582,7 +533,6 @@ export default function OwnerProfile() {
                         </div>
                     </div>
                 </div>
-
                 )}
             </div>
         </div>

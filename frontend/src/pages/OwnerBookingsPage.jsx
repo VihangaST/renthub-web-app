@@ -3,7 +3,6 @@ import PropertyAvailabilityCalendar from "../components/Calender";
 
 function OwnerBookingsPage() {
     const userID = localStorage.getItem("userID");
-
     const [bookedDates, setBookedDates] = useState({});
     const [selectedTenants, setSelectedTenants] = useState({}); // Track tenants per property
     const [selectedBookings, setSelectedBookings] = useState({}); // Store bookings per property

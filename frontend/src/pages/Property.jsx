@@ -327,24 +327,24 @@ function Property() {
     </div>
     </div>
 </div>
-<div className="p-6 bg-white mt-8 shadow-lg rounded-lg border border-gray-200 w-full h-80 overflow-y-auto">
-            <h3 className="text-xl text-black font-semibold mb-4">Reviews</h3>
-            {reviewList.length > 0 ? (
-                reviewList.map((item, index) => (
-                    <div key={index}>
-                        {item.reviews.map((review, idx) => (
-                            <ReviewCard key={idx} review={review} />
-                        ))}
-                    </div>
-                ))
-            ) : (
-                <p className="text-center text-gray-500">No reviews available.</p>
-            )}
-        </div>
+    <div className="p-6 bg-white mt-8 shadow-lg rounded-lg border border-gray-200 w-full h-80 overflow-y-auto">
+        <h3 className="text-xl text-black font-semibold mb-4">Reviews</h3>
+        {reviewList.length > 0 ? (
+            reviewList.map((item, index) => (
+                <div key={index}>
+                    {item.reviews.map((review, idx) => (
+                        <ReviewCard key={idx} review={review} />
+                    ))}
+                </div>
+            ))
+        ) : (
+            <p className="text-center text-gray-500">No reviews available.</p>
+        )}
+    </div>
 
 </main>
 </div>
-    </div>
+</div>
   </>
   
   )

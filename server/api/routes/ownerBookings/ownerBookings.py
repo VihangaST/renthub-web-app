@@ -50,7 +50,6 @@ def get_calenderDates(user_id):
         return jsonify({"message": "An error occurred while fetching property calendar data"}), 500
 
 
-
 @ownerBookings_bp.route('/tenant/<int:tenant_id>', methods=['GET'])
 def get_tenant(tenant_id):
     try:

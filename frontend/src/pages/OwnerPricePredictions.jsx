@@ -6,11 +6,9 @@ ChartJS.register(CategoryScale, LinearScale, LineElement, PointElement, Title, T
 
 function OwnerPricePredictions() {
     const userID = localStorage.getItem("userID");
-
     // States for price history (individual control per property)
     const [calendarData, setCalendarData] = useState({});
     const [selectedFilters, setSelectedFilters] = useState({});
-    
     // States for price predictions (individual control per property)
     const [predictions, setPredictions] = useState({});
     const [loading, setLoading] = useState(true);
@@ -100,7 +98,6 @@ function OwnerPricePredictions() {
             console.log('filteredData from preparePredictionChartData',filteredData)
             console.log('dates from preparePredictionChartData',filteredData.map((p) => p.date))
             console.log('predicted prices from preparePredictionChartData',filteredData.map((p) => p.predicted_price))
-        
             return {
                 dates: filteredData.map((p) => p.date || "Unknown Date"),
                 predictedPrices: filteredData.map((p) => p.predicted_price || 0),
@@ -128,79 +125,17 @@ function OwnerPricePredictions() {
                 }
 
                 const { dates, prices } = prepareChartData(propertyData, propertyID);
-                // console.log('dates',dates)
-                // console.log('prices',prices)
                 const { dates: predictionDates, predictedPrices } = preparePredictionChartData(propertyID);
                 console.log('predictionDates',predictionDates)
                 console.log('predictedPrices',predictedPrices)
 
                 return (
-                    <>
+                <>
                 <h2 className="text-3xl font-bold">Price Predictions {propertyID} </h2> 
                     <div key={propertyID} className="flex w-full gap-10 bg-gray-100 p-6 rounded shadow-md">
                     <div className="w-full bg-white mt-5 p-4 rounded">
                     <h2 className="text-lg font-bold text-black">Price History</h2>
-                        {/* Filters for price history */}
-                        {/* <div className="mb-10 flex items-center bg-gray-100">
-                        <label className="text-md font-medium text-gray-400">Select Year: </label>
-                            <select
-                                value={selectedFilters[propertyID]?.selectedYear}
-                                onChange={(e) =>
-                                    setSelectedFilters((prev) => ({
-                                        ...prev,
-                                        [propertyID]: {
-                                            ...prev[propertyID],
-                                            selectedYear: Number(e.target.value),
-                                        },
-                                    }))
-                                }
-                                className="ml-4 p-1 border rounded"
-                            >
-                                {[2023, 2024, 2025, 2026].map((year) => (
-                                    <option key={year} value={year}>{year}</option>
-                                ))}
-                            </select>
-
-                            <label className="ml-4 text-md font-medium text-gray-400">Select Month: </label>
-                            <select
-                                value={selectedFilters[propertyID]?.selectedMonth}
-                                onChange={(e) =>
-                                    setSelectedFilters((prev) => ({
-                                        ...prev,
-                                        [propertyID]: {
-                                            ...prev[propertyID],
-                                            selectedMonth: Number(e.target.value),
-                                        },
-                                    }))
-                                }
-                                className="ml-4 p-1 border rounded"
-                                disabled={selectedFilters[propertyID]?.showFullYear}
-                            >
-                                {["January", "February", "March", "April", "May", "June",
-                                    "July", "August", "September", "October", "November", "December"]
-                                    .map((month, index) => (
-                                        <option key={index} value={index}>{month}</option>
-                                    ))}
-                            </select>
-
-                            <div className="ml-6 flex items-center">
-                                <input
-                                    type="checkbox"
-                                    checked={selectedFilters[propertyID]?.showFullYear}
-                                    onChange={() =>
-                                        setSelectedFilters((prev) => ({
-                                            ...prev,
-                                            [propertyID]: {
-                                                ...prev[propertyID],
-                                                showFullYear: !prev[propertyID]?.showFullYear,
-                                            },
-                                        }))
-                                    }
-                                    className="mr-2"
-                                />
-                                <label className="text-md font-medium text-gray-400">Show Full Year</label>
-                            </div>
-                        </div> */}
+                        
                         <div className="mb-10 flex items-center bg-gray-100">
                             <label className="text-md font-medium text-gray-400">Select Year: </label>
                             <select
@@ -361,23 +296,22 @@ function OwnerPricePredictions() {
                         </button>
                     </div>
 
-    {/* Prediction Chart */}
-    {!loading && predictionDates.length > 0 && (
-        <Line
-            data={{
-                labels: predictionDates,
-                datasets: [{ label: "Predicted Price", data: predictedPrices, borderColor: "rgb(75, 192, 192)", tension: 0.1 }],
-            }}
-            options={{ responsive: true }}
-        />
-    )}
-</div>
-
-                    </div>
-                    </>
-                );
-            })}
-        </div>
+                {/* Prediction Chart */}
+            {!loading && predictionDates.length > 0 && (
+                <Line
+                    data={{
+                        labels: predictionDates,
+                        datasets: [{ label: "Predicted Price", data: predictedPrices, borderColor: "rgb(75, 192, 192)", tension: 0.1 }],
+                    }}
+                    options={{ responsive: true }}
+                />
+            )}
+            </div>
+            </div>
+            </>
+        );
+        })}
+    </div>
     );
 }
 

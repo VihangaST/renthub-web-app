@@ -72,142 +72,15 @@ def get_user_details():
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
-# @ownerProfile_bp.route('/updatepropertydetails', methods=['POST'])
-# def update_user_details():
-#     try:
-#         if request.content_type != 'application/json':
-#             return jsonify({"error": "Unsupported Media Type: Content-Type must be 'application/json'"}), 415
-
-#         # Parse the JSON body
-#         data = request.get_json()
-
-#         if not data:
-#             return jsonify({"error": "Invalid JSON or empty body"}), 400
-
-#         form_data = data
-#         print('form_data',form_data)
-#         # Accessing individual fields from the form data
-#         availability_365 = form_data.get('availability_365')
-#         host_ID = data.get('host_ID')
-#         print(host_ID)
-#         host_name = form_data.get('host_name')
-#         latitude = form_data.get('latitude')
-#         list_ID = form_data.get('list_ID')
-#         list_name = data.get('list_name')
-#         longitude = form_data.get('longitude')
-#         minmum_nights = form_data.get('minmum_nights')
-#         neighbourhood = form_data.get('neighbourhood')
-#         number_of_reviews = form_data.get('number_of_reviews')
-#         number_of_reviews_ltm = form_data.get('number_of_reviews_ltm')
-#         price = form_data.get('price')
-#         room_type = form_data.get('room_type')
-#         description = form_data.get('description')
-#         property_type = form_data.get('property_type')
-#         accommodates = form_data.get('accommodates')
-#         bathrooms_text = form_data.get('bathrooms_text')
-#         bedrooms = form_data.get('bedrooms')
-#         beds = form_data.get('beds')
-#         amenities = form_data.get('amenities')
-#         minimum_nights = form_data.get('minimum_nights')
-#         maximum_nights = form_data.get('maximum_nights')
-
-#         if not host_ID:
-#             return jsonify({"error": "host_ID is required"}), 400
-
-#         # Find the user in the database (Listing table)
-#         user = Listing.query.filter_by(host_ID=host_ID, list_ID=list_ID).first()
-
-#         # if not user:
-#         #     # If user does not exist in Listing table, create a new entry
-#         #     new_user = Listing(
-#         #         list_ID=list_ID,
-#         #         list_name=list_name,
-#         #         host_ID=host_ID,
-#         #         price=price,
-#         #         room_type=room_type,
-#         #         neighbourhood=neighbourhood,
-#         #         longitude=longitude,
-#         #         latitude=latitude,
-#         #     )
-#         #     db.session.add(new_user)
-#         #     db.session.commit()
-
-#         #     # Create a new entry in the ListingDetailed table
-#         #     new_listing_detailed = ListingDetailed(
-#         #         description=description,
-#         #         property_type=property_type,
-#         #         accommodates=accommodates,
-#         #         bathrooms_text=bathrooms_text,
-#         #         bedrooms=bedrooms,
-#         #         beds=beds,
-#         #         amenities=amenities,
-    
-#         #     )
-#         #     db.session.add(new_listing_detailed)
-#         #     db.session.commit()
-
-#         #     return jsonify({"message": "New user and detailed info added successfully", "user_id": new_user.id}), 201
-
-#         # If user exists in Listing table, update the existing record
-#         user.price = price
-#         user.room_type = room_type
-#         user.neighbourhood = neighbourhood
-#         user.longitude = longitude
-#         user.latitude = latitude
-#         user.list_name = list_name
-
-#         # Find the user in ListingDetailed table
-#         detailed_user = ListingDetailed.query.filter_by(id=list_ID).first()
-
-#         # if not detailed_user:
-#         #     # If no entry exists in ListingDetailed, create a new one
-#         #     detailed_user = ListingDetailed(
-#         #         description=description,
-#         #         property_type=property_type,
-#         #         accommodates=accommodates,
-#         #         bathrooms_text=bathrooms_text,
-#         #         bedrooms=bedrooms,
-#         #         beds=beds,
-#         #         amenities=amenities,
-#         #     )
-#         #     db.session.add(detailed_user)
-#         # else:
-#         #     # If entry exists, update the detailed record
-#         #     detailed_user.description = description
-#         #     detailed_user.property_type = property_type
-#         #     detailed_user.accommodates = accommodates
-#         #     detailed_user.bathrooms_text = bathrooms_text
-#         #     detailed_user.bedrooms = bedrooms
-#         #     detailed_user.beds = beds
-#         #     detailed_user.amenities = amenities
-# # If entry exists, update the detailed record
-#         detailed_user.description = description
-#         detailed_user.property_type = property_type
-#         detailed_user.accommodates = accommodates
-#         detailed_user.bathrooms_text = bathrooms_text
-#         detailed_user.bedrooms = bedrooms
-#         detailed_user.beds = beds
-#         detailed_user.amenities = amenities
-#         db.session.commit()
-
-#         return jsonify({"message": "User and detailed info updated successfully"})
-
-#     except Exception as e:
-#         print(e)
-#         return jsonify({"error": str(e)}), 500
-
 @ownerProfile_bp.route('/updatepropertydetails', methods=['POST'])
 def update_or_add_property():
     try:
         if request.content_type != 'application/json':
             return jsonify({"error": "Unsupported Media Type: Content-Type must be 'application/json'"}), 415
-
         # Parse JSON body
         data = request.get_json()
-
         if not data:
             return jsonify({"error": "Invalid JSON or empty body"}), 400
-
         print('Received Data:', data)  # Debugging logs
 
         # Extract data fields

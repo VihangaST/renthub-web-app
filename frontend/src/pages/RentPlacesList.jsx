@@ -10,24 +10,8 @@ export default function RentPlaceList() {
   const [searchTerm, setSearchTerm] = useState(""); // State for search term
   const [filteredProperties, setFilteredProperties] = useState([]); // State for filtered properties
 
-    // const [properties, setProperties] = useState({
-    //     list_ID:'',
-    //     list_name:'',
-    //     host_ID:'',
-    //     host_name:'',
-    //     neighbourhood:'',
-    //     latitude:'',
-    //     longitude:'',
-    //     room_type:'',
-    //     price:''
-        
-    // });
-
-  const fetchPropertyList = async (e) => {
-      // e.preventDefault();
-          
-          try {
-          
+  const fetchPropertyList = async (e) => {      
+          try {    
               const response = await fetch(`${BASE_URL}/rentplaceslist`, {
               method: 'GET',
               headers: {
@@ -46,11 +30,6 @@ export default function RentPlaceList() {
                   console.log("Server Response:", data);
                   console.log("data.properties",data.properties)
                   setProperties(data.properties);
-                  // setProperties(data)
-                  // login(data);
-                  // navigate("/Dashboard/Charts")
-                  // Assuming the fetched data is in the correct format (as an array of property objects)
-              
               } else {
                   alert('unsuccessfully fetched');
                   // setValidationMessage({...validationMessage, password: 'Invalid Credentials' });
@@ -79,8 +58,6 @@ export default function RentPlaceList() {
     navigate(`/property/${propertyId}`); // Navigate to the details page using the property ID
   };
   
-
-
   return (
     <>
     <h1 className="mt-10 text-2xl md:text-3xl text-primary-light dark:text-primary-lighter font-bold">Rent Places</h1>

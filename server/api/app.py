@@ -4,11 +4,8 @@ from flask_cors import CORS
 from cryptography.hazmat.primitives import serialization
 from config import Config
 from extensions import db
-
-
 import pymysql
 pymysql.install_as_MySQLdb()
-
 
 # Import the login blueprint
 from routes.authentication.login import login_bp
@@ -20,7 +17,6 @@ from routes.ownerprofile.ownerProfile import ownerProfile_bp
 from routes.ownerBookings.ownerBookings import ownerBookings_bp
 from routes.ownerPricePredictions.ownerPricePredictions import ownerPricePredictions_bp
 from routes.ownerFeatureAnalysis.ownerFeatureAnalysis import ownerFeatureAnalysis_bp
-
 
 def create_app():
     app = Flask(__name__)

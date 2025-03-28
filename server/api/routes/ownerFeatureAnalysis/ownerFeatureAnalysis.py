@@ -9,7 +9,6 @@ from classModels.reviewRates import ReviewRate
 from classModels.review_detailed import ReviewDetailed
 from classModels.listing_detailed import ListingDetailed
 ownerFeatureAnalysis_bp = Blueprint('ownerFeatureAnalysis_bp', __name__)
-# CORS(ownerFeatureAnalysis_bp) 
 
 @ownerFeatureAnalysis_bp.route('/testre')
 def get_test_message():
@@ -38,9 +37,6 @@ def get_calenderDates(user_id):
 
         for date_record in reviewRates:
             property_id = date_record.id
-
-            # if property_id not in calender_dates_dict:
-            #     calender_dates_dict[property_id] = []
 
             calender_dates_dict[property_id].append({
                 "review_scores_rating": date_record.review_scores_rating,

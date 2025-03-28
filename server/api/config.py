@@ -1,7 +1,6 @@
 from urllib.parse import quote_plus
 import os
 class Config:
-
     password = quote_plus('VSt@99')
     
     SQLALCHEMY_DATABASE_URI = f'mysql+mysqlconnector://root:{password}@localhost/renthub'

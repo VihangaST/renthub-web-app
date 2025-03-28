@@ -75,98 +75,78 @@ e.preventDefault();
 return (
 <>
 <div className="h-full bg-gray-100 p-10 flex items-center justify-center">
-
-
-<div className="h-full bg-gray-700">
-    {/* <div style={{ backgroundImage: LoginImage, height: '100vh', backgroundSize: 'cover', backgroundPosition: 'center' }}> */}
-    {/* <img
-          src={LoginImage}
-          alt="Login Illustration"
-          className="w-[1800px] h-[600px] object-cover"
-        /> */}
-    {/* </div> */}
-
-</div>
-<div className="sm:mx-auto sm:w-full sm:max-w-sm">
-<h2 className=" text-center text-2xl font-bold leading-9 tracking-tight text-gray-700 rounded">
-    Sign in
-</h2>
-<form className="space-y-2">
-    <div >
-    <div className="flex items-center justify-between">
-    <label htmlFor="email" className="block text-sm font-medium leading-6 text-gray-900">
-        Username
-    </label>
+    <div className="h-full bg-gray-700">
     </div>
-    <div className="mt-2">
-        <input
-        id="username"
-        name="username"
-        type="text"
-        autoComplete="username"
-        required
-        value={username}
-        onChange={(e) => {
-        setUsername(e.target.value);
-        setValidationMessage({ ...validationMessage, username: '' });
-        }}
-        className="block w-full bg-gray-300 rounded-md border-0 py-1.5 px-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary-dark sm:text-sm sm:leading-6"
-        />
-        {validationMessage.username && <p className="text-red-500 text-sm mt-1">{validationMessage.username}</p>}
-    </div>
-    </div>
-
-    <div>
-    <div className="flex items-center justify-between">
-    <label htmlFor="password" className="block text-sm font-medium leading-6 text-gray-900">
-    Password
-    </label>
-        
-    </div>
-    <div className="mt-2">
-        <input
-        id="password"
-        name="password"
-        type="password"
-        autoComplete="current-password"
-        required
-        value={password}
-        // onChange={(e) => setPassword(e.target.value)}
-        onChange={(e) => {
-        setPassword(e.target.value);
-        setValidationMessage({ ...validationMessage, password: '' });
-        }}
-        className="block w-full bg-gray-300 rounded-md border-0 px-1.5 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary-dark sm:text-sm sm:leading-6"
-        />
-        {validationMessage.password && <p className="text-red-500 text-sm mt-1">{validationMessage.password}</p>}
-    
-    </div>
-    </div>
-
-    <div>
-    <button
-        type="submit"
-        className="h-8 w-full flex items-center justify-center px-4 py-2 text-sm custom-button"
-        onClick={handleLogin}
-        // onClick={() => navigate("/Dashboard")}
-    >
+    <div className="sm:mx-auto sm:w-full sm:max-w-sm">
+    <h2 className=" text-center text-2xl font-bold leading-9 tracking-tight text-gray-700 rounded">
         Sign in
-    </button>
-    {/* {message && <p>{message}</p>} */}
- 
-    </div>
-
-    <div className="text-sm flex items-center justify-between">
-        {/* <a href="#" className=" text-gray-400 hover:text-black">
-            Forgot password?
-        </a> */}
-        <a href="/signup" className=" text-gray-400 hover:text-black">Dont have an account? Sign up</a>
-
+    </h2>
+    <form className="space-y-2">
+        <div >
+            <div className="flex items-center justify-between">
+            <label htmlFor="email" className="block text-sm font-medium leading-6 text-gray-900">
+                Username
+            </label>
+            </div>
+            <div className="mt-2">
+                <input
+                id="username"
+                name="username"
+                type="text"
+                autoComplete="username"
+                required
+                value={username}
+                onChange={(e) => {
+                setUsername(e.target.value);
+                setValidationMessage({ ...validationMessage, username: '' });
+                }}
+                className="block w-full bg-gray-300 rounded-md border-0 py-1.5 px-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary-dark sm:text-sm sm:leading-6"
+                />
+                {validationMessage.username && <p className="text-red-500 text-sm mt-1">{validationMessage.username}</p>}
+            </div>
+        </div>
+        <div>
+        <div className="flex items-center justify-between">
+        <label htmlFor="password" className="block text-sm font-medium leading-6 text-gray-900">
+        Password
+        </label>  
+        </div>
+        <div className="mt-2">
+            <input
+            id="password"
+            name="password"
+            type="password"
+            autoComplete="current-password"
+            required
+            value={password}
+            // onChange={(e) => setPassword(e.target.value)}
+            onChange={(e) => {
+            setPassword(e.target.value);
+            setValidationMessage({ ...validationMessage, password: '' });
+            }}
+            className="block w-full bg-gray-300 rounded-md border-0 px-1.5 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary-dark sm:text-sm sm:leading-6"
+            />
+            {validationMessage.password && <p className="text-red-500 text-sm mt-1">{validationMessage.password}</p>}
+        
+        </div>
         </div>
 
-    
-</form>
-</div>
+        <div>
+        <button
+            type="submit"
+            className="h-8 w-full flex items-center justify-center px-4 py-2 text-sm custom-button"
+            onClick={handleLogin}
+            // onClick={() => navigate("/Dashboard")}
+        >
+            Sign in
+        </button>
+        {/* {message && <p>{message}</p>} */}
+        </div>
+        <div className="text-sm flex items-center justify-between">
+            <a href="/signup" className=" text-gray-400 hover:text-black">Dont have an account? Sign up</a>
+            </div>    
+    </form>
+    </div>
 </div>
 </>
 );
