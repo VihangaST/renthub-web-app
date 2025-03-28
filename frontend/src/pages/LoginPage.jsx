@@ -1,8 +1,6 @@
 import React,{useState,useContext} from 'react';
 import { useNavigate } from 'react-router-dom';
 import { BASE_URL } from '../constants/config';
-// import AuthContext  from '../context/AuthContext';
-
 
 export default function LoginPage() {
     const [username, setUsername] = useState('');
@@ -40,7 +38,8 @@ e.preventDefault();
 
         if (response.ok) {
             const data = await response.json();
-            alert(`Response: ${JSON.stringify(data)}`);
+            // alert(`Response: ${JSON.stringify(data)}`);
+            alert(`Login successful`);
             console.log("userID:", data.user.userID)
             localStorage.setItem('userID', data.user.userID);
             // alert(Response: ${JSON.stringify(data)});
@@ -49,10 +48,22 @@ e.preventDefault();
             // alert(token:${JSON.stringify(data.token)});
             console.log("Server Response:", data);
             localStorage.setItem('username', username); // Store username in localStorage
-            navigate("/Dashboard")
+            localStorage.setItem('roleID', data.user.roleID); // Store roleID in localStorage
+            // retreive the roleID from the local storage
+            const roleID = localStorage.getItem('roleID');
+            console.log("roleID:", roleID);
+            if(roleID ==='1'){
+                navigate("/propertyownerprofile")
+            }
+            else{
+                navigate("/rentplacelist")
+            }
+
+            
 
         } else {
             // alert(Login failed: ${response.statusText});
+            alert('Login failed. Try again');
             setValidationMessage({...validationMessage, password: 'Invalid Credentials' });
         }
     } catch (error) {
@@ -63,13 +74,23 @@ e.preventDefault();
 
 return (
 <>
-<div className="">
+<div className="h-full bg-gray-100 p-10 flex items-center justify-center">
+
+
+<div className="h-full bg-gray-700">
+    {/* <div style={{ backgroundImage: LoginImage, height: '100vh', backgroundSize: 'cover', backgroundPosition: 'center' }}> */}
+    {/* <img
+          src={LoginImage}
+          alt="Login Illustration"
+          className="w-[1800px] h-[600px] object-cover"
+        /> */}
+    {/* </div> */}
+
+</div>
 <div className="sm:mx-auto sm:w-full sm:max-w-sm">
-<h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-200">
+<h2 className=" text-center text-2xl font-bold leading-9 tracking-tight text-gray-700 rounded">
     Sign in
 </h2>
-</div>
-<div className="mt-10 w-full">
 <form className="space-y-2">
     <div >
     <div className="flex items-center justify-between">
@@ -85,7 +106,6 @@ return (
         autoComplete="username"
         required
         value={username}
-        // onChange={(e) => setUsername(e.target.value)}
         onChange={(e) => {
         setUsername(e.target.value);
         setValidationMessage({ ...validationMessage, username: '' });
@@ -137,10 +157,10 @@ return (
     </div>
 
     <div className="text-sm flex items-center justify-between">
-        <a href="#" className=" text-gray-400 hover:text-black">
+        {/* <a href="#" className=" text-gray-400 hover:text-black">
             Forgot password?
-        </a>
-        <a href="/signup" className=" text-gray-400 hover:text-black">Sign up</a>
+        </a> */}
+        <a href="/signup" className=" text-gray-400 hover:text-black">Dont have an account? Sign up</a>
 
         </div>
 

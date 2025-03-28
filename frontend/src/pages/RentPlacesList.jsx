@@ -1,101 +1,3 @@
-// import React from "react";
-
-// export default function RentPlaceList() {
-//   return (
-//     <div className=" min-h-screen p-8">
-//     {/* <div className="bg-gradient-to-r from-orange-500 via-pink-500 to-purple-500 min-h-screen p-8"> */}
-//       <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-3 gap-8">
-//         {/* Profile Card */}
-//         <div className="bg-white rounded-xl shadow-lg p-6 flex flex-col items-center">
-//           <img
-//             src="https://via.placeholder.com/150"
-//             alt="Profile"
-//             className="rounded-full w-24 h-24 object-cover"
-//           />
-//           <h2 className="text-lg font-bold mt-4">Sami Rahman</h2>
-//           <p className="text-sm text-gray-500 mt-1">
-//             Last login: 07 Aug 2018, 15:44
-//           </p>
-//           <p className="text-sm text-gray-500">
-//             Windows 10 pro, New York (US)
-//           </p>
-//           <p className="text-sm text-gray-500 mt-4">
-//             +1 - 856-589-905-1236
-//           </p>
-//           <p className="text-sm text-gray-500">samirahman002@gmail.com</p>
-//           <div className="flex items-center justify-between w-full mt-4">
-//             <span className="text-sm font-medium">SMS alerts activation</span>
-//             <span className="w-4 h-4 bg-green-500 rounded-full"></span>
-//           </div>
-//           <button className="bg-red-500 text-white px-6 py-2 rounded-lg mt-6">
-//             Save
-//           </button>
-//         </div>
-
-//         {/* xPay Accounts */}
-//         {/* <div className="bg-white rounded-xl shadow-lg p-6">
-//           <div className="flex justify-between items-center mb-4">
-//             <h2 className="text-lg font-bold">My xPay accounts</h2>
-//             <button className="text-gray-500 hover:text-black">
-//               Edit
-//             </button>
-//           </div>
-//           <div>
-//             <p className="text-sm font-medium">Active account:</p>
-//             <p className="text-sm text-gray-600">8649 5608 8009 6524</p>
-//             <button className="bg-red-500 text-white text-sm px-4 py-1 rounded mt-2">
-//               Block Account
-//             </button>
-//           </div>
-//           <div className="mt-6">
-//             <p className="text-sm font-medium">Blocked account:</p>
-//             <p className="text-sm text-gray-600">7812 5896 1203 5842</p>
-//             <button className="bg-green-500 text-white text-sm px-4 py-1 rounded mt-2">
-//               Unblock Account
-//             </button>
-//           </div>
-//         </div> */}
-
-//         {/* My Bills */}
-//         {/* <div className="bg-white rounded-xl shadow-lg p-6">
-//           <div className="flex justify-between items-center mb-4">
-//             <h2 className="text-lg font-bold">My bills</h2>
-//             <button className="text-gray-500 hover:text-black">
-//               Filter by
-//             </button>
-//           </div>
-//           <ul className="space-y-3">
-//             <li className="flex justify-between items-center">
-//               <span>Phone bill</span>
-//               <span className="bg-green-500 text-white text-xs px-3 py-1 rounded">
-//                 Bill paid
-//               </span>
-//             </li>
-//             <li className="flex justify-between items-center">
-//               <span>Internet bill</span>
-//               <span className="bg-red-500 text-white text-xs px-3 py-1 rounded">
-//                 Not paid
-//               </span>
-//             </li>
-//             <li className="flex justify-between items-center">
-//               <span>House rent</span>
-//               <span className="bg-green-500 text-white text-xs px-3 py-1 rounded">
-//                 Bill paid
-//               </span>
-//             </li>
-//             <li className="flex justify-between items-center">
-//               <span>Income tax</span>
-//               <span className="bg-green-500 text-white text-xs px-3 py-1 rounded">
-//                 Bill paid
-//               </span>
-//             </li>
-//           </ul>
-//         </div> */}
-//       </div>
-//     </div>
-//   );
-// }
-
 import React,{useEffect, useState} from "react";
 import { BASE_URL } from "../constants/config";
 import Property from "./Property";
@@ -180,8 +82,11 @@ export default function RentPlaceList() {
 
 
   return (
-    <div className="min-h-screen bg-gray-100 p-8 m-10">
-     <div className="max-w-4xl mx-auto space-y-6">
+    <>
+    <h1 className="mt-10 text-2xl md:text-3xl text-primary-light dark:text-primary-lighter font-bold">Rent Places</h1>
+            
+    <div className="min-h-screen bg-gray-100 p-8 mt-8 rounded">
+     <div className="max-w-4xl mx-auto space-y-6 rounded">
       {/* Search Bar */}
       <input
           type="text"
@@ -190,8 +95,6 @@ export default function RentPlaceList() {
           onChange={(e) => setSearchTerm(e.target.value)}
           className="w-full p-2 mb-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-500"
         />
-        {/* Map over fetched properties to render each card */}
-       {/* Map over filtered properties to render each card */}
        {filteredProperties.map((place, index) => (
           <div
             key={index}
@@ -212,5 +115,7 @@ export default function RentPlaceList() {
         ))}
       </div>
     </div>
+    </>
+    
   );
 }
