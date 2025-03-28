@@ -7,8 +7,7 @@ function OwnerBookingsPage() {
     const [bookedDates, setBookedDates] = useState({});
     const [selectedTenants, setSelectedTenants] = useState({}); // Track tenants per property
     const [selectedBookings, setSelectedBookings] = useState({}); // Store bookings per property
-
-
+    
     const fetchCalenderDates = async () => {
         try {
             const response = await fetch(`http://localhost:5000/bookings/${userID}`);
@@ -56,11 +55,6 @@ function OwnerBookingsPage() {
             fetchTenantDetails(tenantId, propertyId);
         }
 
-        // // Store selected bookings for the property
-        // setSelectedBookings((prev) => ({
-        //     ...prev,
-        //     [propertyId]: bookedDates[propertyId] || [],
-        // }));
     };
 
     return (
